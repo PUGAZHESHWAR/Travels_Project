@@ -1,0 +1,625 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmation Page</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: white;
+        }
+    
+        h2 {
+            font-size: 20px;
+            font-weight: bolder;
+            color: black;
+            text-align: center; 
+        }
+    
+        p {
+            text-align: center; 
+            margin: 0;
+        }
+        .button{
+            display:flex;
+            align-items: center;
+            justify-content: center;
+        }
+    
+        .container {
+            background-color: #f8f8f8;
+            border: 1px solid gray;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px auto; 
+            width: 80%;
+            max-width: 400px;
+            text-align: left; 
+        }
+    
+        .pickup-drop {
+            display: flex; 
+            flex-direction: column; 
+            gap: 10px; 
+        }
+    
+        .pickup, .drop {
+            display: flex;
+            align-items: center; 
+            gap: 10px; 
+        }
+    
+        .pickup div:first-child, .drop div:first-child {
+            font-weight: bold;
+            min-width: 80px; 
+            color: gray;
+        }
+    
+        .pickup div:last-child, .drop div:last-child {
+            flex: 1;
+            font-weight: bold;
+        }
+    
+        .box-title {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+    
+        .button-back {
+            font-weight: bold;
+            color:rgb(61,4,4);
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px auto; 
+            text-align: center;
+        }
+    
+        .Leave-time {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+    
+        .Leave-time .leave, .Leave-time .time {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+    
+        .Leave-time div:first-child {
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: gray;
+        }
+    
+        .Leave-time div:last-child {
+            color: black;
+            font-size: 16px;
+        }
+    
+        .estimated-time-distance {
+            color: gray;
+            font-weight: bold;
+            text-align: center; 
+        }
+    
+        .km {
+            font-weight: bold;
+            text-align: center; 
+        }
+    
+        .Total-amount {
+            font-weight: bold;
+            font-size: x-large;
+            text-align: center; 
+        }
+        .container2 {
+            max-width: 500px;
+            margin: 0 auto;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .item:last-child {
+            font-size: 1.2em;
+            font-weight: bold;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #555;
+        }
+        .footer p {
+            margin: 5px 0;
+        }
+    </style>
+    </head>
+    <body>
+        <h2>Your ride is Confirmed</h2>
+    
+        <p style="color: gray;">
+            Thanks for choosing Arunachala Travels, <br>
+            reservation details have been sent to your phone.
+        </p>
+    <div class="button"><a href="#" class="button-back" onclick="window.location.href = 'index1.html';">Back To Home</a></div>
+        
+    
+        <div class="container">
+            <div class="pickup-drop">
+                <div class="pickup">
+                    <div>Pickup:</div>
+                    <div id="pickup_load"></div>
+                </div>
+                <div class="drop">
+                    <div>Drop:</div>
+                    <div id="drop_load"></div>
+                </div>
+            </div>
+        </div>
+        <div class="Leave-time">
+            <div class="leave">
+                <div>LEAVE ON:</div>
+                <div id="date_load"></div>
+            </div>
+            <div class="time">
+                <div>TIME:</div>
+                <div id="time_load"></div>
+            </div>
+        </div>
+        <div class="estimated-time-distance">
+            <p id="duration_load"></p>
+        </div>
+        <br>
+    
+        <div class="km">
+            <p id="km_load"></p>
+        </div>
+        <br>
+        <div class="Total-amount">
+            <p id="price_load"></p>
+        </div>
+    
+        <div class="bottom">
+            <p>BASE FARE</p>
+        </div>
+
+        <div class="container2">
+            <div class="header">Estimated Fare</div>
+            <div class="item">
+                <span>BASE FARE</span>
+                <span id="base_fare_load"></span>
+            </div>
+            <div class="item">
+                <span>DRIVER ALLOWANCE</span>
+                <span id="da_load"></span>
+            </div>
+            <div class="item">
+                <span>RATE PER KM</span>
+                <span id="rpk_load"></span>
+            </div>
+            <div class="item">
+                <span id="km_display"></span>
+            </div>
+            <div class="item">
+                <span>Estimated fare</span>
+                <span id="est_fare_load"></span>
+            </div>
+            <div class="footer">
+                <p>• EXCLUDES TOLL COSTS, PARKING, PERMITS AND STATE TAX</p>
+                <p>• ₹100/HR WILL BE CHARGED FOR ADDITIONAL HOURS</p>
+                <p>• ₹9/KM WILL BE CHARGED FOR EXTRA KM</p>
+                <p>• DRIVER ALLOWANCE PER 24 HOURS - ₹250</p>
+                <p>• NIGHT TIME ALLOWANCE (11:00 PM - 06:00 AM) - ₹200/NIGHT</p>
+                <p>• EXTRA FARE MAY APPLY IF YOU DON'T END TRIP AT CHENNAI</p>
+            </div>
+        </div>
+
+        <script>
+             console.log("Third Page Data")
+            const receipt_data = JSON.parse(localStorage.getItem("receipt_data"));
+            console.log(receipt_data)
+
+            update_data()
+            function update_data(){
+                var pickup_load = document.getElementById("pickup_load")
+                pickup_load.innerHTML = `${receipt_data.user_Data.From}`;
+
+                var drop_load = document.getElementById("drop_load")
+                drop_load.innerHTML = `${receipt_data.user_Data.To}`;
+                
+                var date_load = document.getElementById("date_load")
+                date_load.innerHTML = `${receipt_data.user_Data.Pick_Date}`;
+
+                var time_load = document.getElementById("time_load")
+                time_load.innerHTML = `${receipt_data.user_Data.Pick_Time}`;
+                
+                var duration_load = document.getElementById("duration_load")
+                duration_load.innerHTML = `${receipt_data.cost_data.duration}`;
+
+                var km_load = document.getElementById("km_load")
+                km_load.innerHTML = `₹${receipt_data.cost_data.selected_cost} per km`;
+
+                var price_load = document.getElementById("price_load")
+                price_load.innerHTML = `₹${receipt_data.cost_data.total_price}`;
+
+                //Afert last div
+                var base_fare_load = document.getElementById("base_fare_load")
+                base_fare_load.innerHTML = `₹${receipt_data.cost_data.total_price}`;
+
+                var da_load = document.getElementById("da_load")
+                da_load.innerHTML = `₹${receipt_data.cost_data.dl}`;
+
+                var rpk_load = document.getElementById("rpk_load")
+                rpk_load.innerHTML = `₹${receipt_data.cost_data.selected_cost}`;
+
+                var km_display = document.getElementById("km_display")
+                km_display.innerHTML = `₹${receipt_data.cost_data.selected_cost} KM (CHARGED ONLY IF TRAVELLED)`;
+
+
+                var total_est_fare = receipt_data.cost_data.total_price + receipt_data.cost_data.dl;
+                var est_fare_load = document.getElementById("est_fare_load")
+                est_fare_load.innerHTML = `₹${total_est_fare}`;
+                
+            }
+        </script>
+
+    </body>
+    
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ride Confirmation</title>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: rgb(61, 4, 4);
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        /* Animated Tick Styles */
+        .tick-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .tick {
+            width: 100px;
+            height: 100px;
+            background-color: rgb(61, 4, 4);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            animation: pop 0.5s ease-in-out;
+        }
+
+        @keyframes pop {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes draw {
+            0% {
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+            100% {
+                opacity: 1;
+                width: 25px;
+                height: 12px;
+            }
+        }
+
+        p {
+            text-align: center;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .back-to-home {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .back-to-home a {
+            color: rgb(61, 4, 4);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .details-box {
+            border: 2px solid rgb(61, 4, 4);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .details-box div {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+            font-size: 1rem;
+        }
+
+        .details-box div span {
+            color: rgb(61, 4, 4);
+            font-weight: bold;
+        }
+
+        .fare-section {
+            margin-top: 20px;
+        }
+
+        .fare-title {
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: rgb(61, 4, 4);
+        }
+
+        .fare-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .fare-table tr {
+            border-bottom: 1px solid #ddd;
+        }
+
+        .fare-table td {
+            padding: 8px 10px;
+            font-size: 1rem;
+        }
+
+        .fare-table td:first-child {
+            color: rgb(61, 4, 4);
+            font-weight: bold;
+        }
+
+        .highlight {
+            color: rgb(61, 4, 4);
+            font-weight: bold;
+        }
+
+        .total-btn {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            text-align: center;
+            padding: 10px;
+            background-color: rgb(61, 4, 4);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .total-btn:hover {
+            background-color: #4a0101;
+        }
+
+        .total-display {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: rgb(61, 4, 4);
+            margin-top: 15px;
+        }
+        .download-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: rgb(61, 4, 4);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .download-btn:hover {
+            background-color: #4a0101;
+        }
+    </style>
+</head>
+<body>
+    <div id="capture" class="container">
+        <h1>Your Ride is Confirmed</h1>
+        <!-- Animated Tick Symbol -->
+        <div class="tick-container">
+            <div class="tick"><img src="tick.jpg" width="130px"></div>
+        </div>
+        <p>Thanks for choosing Arunachala Travels. Reservation details have been sent to your phone.</p>
+        <div class="back-to-home">
+            <a href="#" class="back-to-home">Back To Home</a>
+        </div>
+
+        <div class="details-box">
+            <div><span>Pickup:</span> <span id="pickup_load"></span></div>
+            <div><span>Drop:</span> <span id="drop_load"></span></div>
+            <div><span>Leave On:</span> <span id="date_load"></span></div>
+            <div><span>Time:</span> <span id="time_load"></span></div>
+        </div>
+
+        <div class="fare-section">
+            <div class="fare-title">Base Fare</div>
+            <table class="fare-table">
+                <tr>
+                    <td>Base Fare</td>
+                    <td id="price_load"></td>
+                </tr>
+                <tr>
+                    <td>Driver Allowance</td>
+                    <td>₹250 per 24 hours</td>
+                </tr>
+                <tr>
+                    <td>Rate Per KM</td>
+                    <td id="rpk_load"></td>
+                </tr>
+                <tr>
+                    <td>Additional Hours</td>
+                    <td>₹100/hr</td>
+                </tr>
+                <tr>
+                    <td>Night Time Allowance</td>
+                    <td>₹200/night (11:00 PM - 06:00 AM)</td>
+                </tr>
+                <tr>
+                    <td>Extra Charges</td>
+                    <td>May apply if trip does not end at Chennai</td>
+                </tr>
+                <tr>
+                    <td>Exclusions</td>
+                    <td>Toll costs, parking, permits, and state tax</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="total-btn" onclick="calculateTotal()">TOTAL</div>
+        <div id="total-display" class="total-display"></div>
+        <script>
+            function calculateTotal() {
+                const amounts = document.querySelectorAll('.amount'); // Get all amounts
+                let total = 0;
+
+                amounts.forEach(amount => {
+                    total += parseFloat(amount.innerText); // Add each value
+                });
+
+                // Display the total
+                var total_est_fare = receipt_data.cost_data.total_price + receipt_data.cost_data.dl;
+                document.getElementById('total-display').innerText = `Total: ₹${total_est_fare.toFixed(2)}`;
+            }
+        </script>
+    </div>
+    <button class="download-btn" onclick="downloadAsImage()">Download as Image</button>
+    <script>
+
+            console.log("Third Page Data")
+            const receipt_data = JSON.parse(localStorage.getItem("receipt_data"));
+            console.log(receipt_data)
+        function downloadAsImage() {
+            // Select the content to capture
+            const container = document.getElementById('capture');
+
+            // Use html2canvas to create a screenshot
+            html2canvas(container).then(canvas => {
+                // Convert the canvas to a data URL
+                const imageData = canvas.toDataURL('image/png');
+
+                // Create a download link
+                const link = document.createElement('a');
+                link.href = imageData;
+                link.download = 'ride-confirmation.png'; // Set the file name
+
+                // Programmatically click the link to trigger the download
+                link.click();
+            });
+        }
+
+
+        function update_data(){
+                var pickup_load = document.getElementById("pickup_load")
+                pickup_load.innerHTML = `${receipt_data.user_Data.From}`;
+
+                var drop_load = document.getElementById("drop_load")
+                drop_load.innerHTML = `${receipt_data.user_Data.To}`;
+                
+                var date_load = document.getElementById("date_load")
+                date_load.innerHTML = `${receipt_data.user_Data.Pick_Date}`;
+
+                var time_load = document.getElementById("time_load")
+                time_load.innerHTML = `${receipt_data.user_Data.Pick_Time}`;
+                
+                // var duration_load = document.getElementById("duration_load")
+                // duration_load.innerHTML = `${receipt_data.cost_data.duration}`;
+
+                // var km_load = document.getElementById("km_load")
+                // km_load.innerHTML = `₹${receipt_data.cost_data.selected_cost} per km`;
+
+                var price_load = document.getElementById("price_load")
+                price_load.innerHTML = `₹${receipt_data.cost_data.total_price}`;
+
+                //Afert last div
+                // var base_fare_load = document.getElementById("base_fare_load")
+                // base_fare_load.innerHTML = `₹${receipt_data.cost_data.total_price}`;
+
+                // var da_load = document.getElementById("da_load")
+                // da_load.innerHTML = `₹${receipt_data.cost_data.dl}`;
+
+                var rpk_load = document.getElementById("rpk_load")
+                rpk_load.innerHTML = `₹${receipt_data.cost_data.selected_cost}`;
+
+                // var km_display = document.getElementById("km_display")
+                // km_display.innerHTML = `₹${receipt_data.cost_data.selected_cost} KM (CHARGED ONLY IF TRAVELLED)`;
+
+
+                var total_est_fare = receipt_data.cost_data.total_price + receipt_data.cost_data.dl;
+
+                // var est_fare_load = document.getElementById("est_fare_load")
+                // est_fare_load.innerHTML = `₹${total_est_fare}`;
+                
+            }
+            update_data();
+    </script>
+</body>
+</html>

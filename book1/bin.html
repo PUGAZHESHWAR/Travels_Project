@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Distance Calculator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 30px;
+            width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color:rgb(61,4,4);
+        }
+
+        .input-group {
+            margin: 15px 0;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 1rem;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: #fff;
+            background-color:rgb(61,4,4);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #output {
+            margin-top: 20px;
+            font-size: 1rem;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .error {
+            color: #d9534f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Distance Calculator</h1>
+        <div class="input-group">
+            <label for="origin">From:</label>
+            <input type="text" id="origin" value="Chennai" placeholder="Enter origin">
+        </div>
+        <div class="input-group">
+            <label for="destination">To:</label>
+            <input type="text" id="destination" value="Bangalore" placeholder="Enter destination">
+        </div>
+        <button onclick="calculateDistance()">Calculate Distance</button>
+        <div id="output"></div>
+    </div>
+    <script>
+        let mapsLoaded = false;
+
+        // Function to dynamically load Google Maps API
+        function loadGoogleMapsAPI() {
+            return new Promise((resolve, reject) => {
+                if (mapsLoaded) {
+                    resolve();
+                    return;
+                }
+
+                const script = document.createElement("script");
+                script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAvM9QYZOZaZPsHIOfnTWHJdbRiSHCuOUE&libraries=places";
+                script.async = true;
+                script.onload = () => {
+                    mapsLoaded = true;
+                    resolve();
+                };
+                script.onerror = () => reject("Failed to load Google Maps API");
+                document.head.appendChild(script);
+            });
+        }
+
+        async function calculateDistance() {
+            const origin = document.getElementById("origin").value;
+            const destination = document.getElementById("destination").value;
+
+            try {
+                await loadGoogleMapsAPI(); // Ensure the API is loaded
+                const result = await getDistance(origin, destination);
+                document.getElementById("output").innerHTML =
+                    `Distance: ${result.distance}<br>Duration: ${result.duration}`;
+            } catch (error) {
+                document.getElementById("output").innerHTML = 
+                    `Error calculating distance: ${error}`;
+            }
+        }
+
+        function getDistance(origin, destination) {
+            return new Promise((resolve, reject) => {
+                const service = new google.maps.DistanceMatrixService();
+
+                service.getDistanceMatrix(
+                    {
+                        origins: [origin],
+                        destinations: [destination],
+                        travelMode: google.maps.TravelMode.DRIVING,
+                    },
+                    (response, status) => {
+                        if (status === google.maps.DistanceMatrixStatus.OK) {
+                            const distance = response.rows[0].elements[0].distance.text;
+                            const duration = response.rows[0].elements[0].duration.text;
+                            resolve({ distance, duration });
+                        } else {
+                            reject(status);
+                        }
+                    }
+                );
+            });
+        }
+    </script>
+</body>
+</html>
