@@ -1,0 +1,256 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.fixed-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color:rgb(61,4,4); 
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000; 
+    box-sizing: border-box; 
+}
+
+
+.header-left {
+    flex: 1;
+}
+
+.company-logo {
+    height: 50px;
+    width: 100px;
+}
+img{
+    height: 50px;
+    width: 100px;
+}
+
+.header-center {
+    display: flex;
+    flex: 2;
+    justify-content: center; 
+}
+
+.contact-info {
+    display: flex;
+    align-items: center;
+}
+
+.phone-box {
+    background-color: white;
+    color:rgb(61,4,4);
+    padding: 6px 10px; 
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    font-size: 14px; 
+}
+
+.phone-icon {
+    margin-right: 8px;
+    font-size: 16px;
+}
+
+.header-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.app-login {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; 
+}
+
+.download, .login {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.download-icon, .login-icon {
+    margin-right: 5px;
+    font-size: 18px;
+}
+
+.download span, .login span {
+    font-size: 14px;
+}
+
+.main-content {
+    margin-top: 100px; 
+    padding: 20px;
+    text-align: center;
+}
+
+.form-container {
+    position: relative;
+    top: 100px;
+    background: #fff;
+    padding: 20px 25px;
+    width: 100%;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    text-align: center;
+    margin-top:10px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #333;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+.tabs {
+    display: flex;
+    justify-content: space-between;
+    border: 2px solid #ccc; 
+    border-radius: 10px; 
+    margin-bottom: 15px;
+    overflow: hidden; 
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 10px;
+    background: #f0f0f0;
+    border: none; 
+    text-align: center;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+}
+
+.tab-btn:not(:last-child) {
+    border-right: 1px solid #ccc; 
+}
+
+.tab-btn.active {
+    background:rgb(61,4,4); 
+    color: #fff;
+    position: relative;
+    z-index: 1;
+    border-radius: 8px 8px 8px 8px; 
+    margin-top: -2px; 
+    border: 2px solidrgb(61,4,4); 
+}
+
+h3 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.trip-type {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    border: 2px solid #ccc; 
+    border-radius: 8px;
+    margin: 0 auto 20px; 
+    padding: 0px; 
+}
+
+.trip-btn {
+    flex: none; 
+    padding: 8px; 
+    /* background: #f0f0f0;  */
+    border: none; 
+    border-radius: 5px; 
+    font-size: 12px; 
+    box-sizing: border-box;
+    margin: 0px 0px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: background 0.3s, color 0.3s;
+}
+
+.trip-btn.active {
+    background:rgb(61,4,4);
+    color: #fff; 
+    border-radius: 5px; 
+    border: 2px solidrgb(61,4,4);
+}
+
+form {
+    text-align: left;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.inline {
+    display: flex;
+    gap: 10px;
+}
+
+.inline div {
+    flex: 1;
+}
+
+.add-city-btn {
+    background: #ff7f00;
+    color: #fff;
+    padding: 10px 15px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+.explore-btn {
+    width: 100%;
+    background:rgb(61,4,4);
+    color: #fff;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.explore-btn:hover {
+    background: #0056b3;
+}
+
+#title{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 20px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
