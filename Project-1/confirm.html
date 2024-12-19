@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ride Confirmation</title>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: rgb(61, 4, 4);
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        /* Animated Tick Styles */
+        .tick-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .tick {
+            width: 100px;
+            height: 100px;
+            background-color: rgb(61, 4, 4);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            animation: pop 0.5s ease-in-out;
+        }
+
+        @keyframes pop {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes draw {
+            0% {
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+            100% {
+                opacity: 1;
+                width: 25px;
+                height: 12px;
+            }
+        }
+
+        p {
+            text-align: center;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .back-to-home {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .back-to-home a {
+            color: rgb(61, 4, 4);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .details-box {
+            border: 2px solid rgb(61, 4, 4);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .details-box div {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+            font-size: 1rem;
+        }
+
+        .details-box div span {
+            color: rgb(61, 4, 4);
+            font-weight: bold;
+        }
+
+        .fare-section {
+            margin-top: 20px;
+        }
+
+        .fare-title {
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: rgb(61, 4, 4);
+        }
+        .final-price{
+            text-align: center;
+            font-weight: bold;
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: rgb(62, 60, 60);
+        }
+        
+        .fare-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .fare-table tr {
+            border-bottom: 1px solid #ddd;
+        }
+
+        .fare-table td {
+            padding: 8px 10px;
+            font-size: 1rem;
+        }
+
+        .fare-table td:first-child {
+            color: rgb(61, 4, 4);
+            font-weight: bold;
+        }
+
+        .highlight {
+            color: rgb(61, 4, 4);
+            font-weight: bold;
+        }
+
+        .total-btn {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            text-align: center;
+            padding: 10px;
+            background-color: rgb(61, 4, 4);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .total-btn:hover {
+            background-color: #4a0101;
+        }
+
+        .total-display {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: rgb(61, 4, 4);
+            margin-top: 15px;
+        }
+        .download-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: rgb(61, 4, 4);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .download-btn:hover {
+            background-color: #4a0101;
+        }
+    
+        
+    </style>
+</head>
+<body>
+    <div id="capture" class="container">
+        <h1>Your Ride is Confirmed</h1>
+        <!-- Animated Tick Symbol -->
+        <div class="tick-container">
+            <div class="tick"><img src="tick.jpg" width="130px"></div>
+        </div>
+        <p>Thanks for choosing Arunachala Travels. Reservation details have been sent to your phone.</p>
+        <div class="back-to-home">
+            <a href="#" class="back-to-home">Back To Home</a>
+        </div>
+
+        <div class="details-box">
+            <div><span>Pickup:</span> <span id="pickup_load"></span></div>
+            <div><span>Drop:</span> <span style="text-align: c;" id="drop_load"></span></div>
+            <div><span>Leave On:</span> <span id="date_load"></span></div>
+            <div><span>Leave Time:</span> <span id="time_load"></span></div>
+            <div><span>Trip Mode:</span> <span id="mode_load"></span></div>
+            <div><span>Trip Type</span> <span id="type_load"></span></div>
+            <div><span>Car Selected</span> <span id="selected_load"></span></div>
+            <div><span>Total Distance:</span> <span id="distance_load"></span></div>
+            <div><span>Travelling Time:</span> <span id="traveltime_load"></span></div>
+
+
+        </div>
+
+        <div class="fare-section">
+            <div class="final-price"id="final_prices"></div>
+            <div class="fare-title">Estimated Fare</div>
+            <table class="fare-table" id="fare-table">
+
+            </table>
+        </div>
+        <!-- <div id="total-display" class="total-display"></div> -->
+      
+    </div>
+    <button class="download-btn" onclick="downloadAsImage()">Confirm Booking</button>
+
+    <script>
+        function sendWhatsAppMessage() {
+            // const imageURL = imageData // Replace with your PNG image URL
+
+            const message = `
+            Arunachalam Travels Bookng Details
+                *Name:*   ${receipt_data.user_Data.Name}
+                *Phone:*   ${receipt_data.user_Data.Phone}
+                *Email:*   ${receipt_data.user_Data.Email}
+                *From:*   ${receipt_data.user_Data.From}
+                *To:*   ${receipt_data.user_Data.To}
+                *Leave On:*   ${receipt_data.user_Data.Pick_Date}
+                *Time:*   ${receipt_data.user_Data.Pick_Time}
+                *Trip Mode:*   ${receipt_data.user_Data.Trip}
+                *Trip Type:*   ${receipt_data.user_Data.Type}
+                *Car Selected:*   ${receipt_data.cost_data.car_selected}
+                *Distance:*   ${receipt_data.cost_data.distance}
+                *Travelling Time:*   ${receipt_data.cost_data.duration}
+                *Estimated Price:*   ₹${total_est_fare}
+                
+            `.trim(); 
+
+            const encodedMessage = encodeURIComponent(message);
+            const recipientPhoneNumber = "+91 8838480505"; 
+        
+
+            const whatsappURL = `https://wa.me/${recipientPhoneNumber}?text=${encodedMessage}`;
+            window.open(whatsappURL, '_blank');
+        }
+        
+        </script>
+
+    <script>
+
+            console.log("Third Page Data")
+            const receipt_data = JSON.parse(localStorage.getItem("receipt_data"));
+            console.log(receipt_data)
+
+            function calculatetotalamount() {
+                const fareTable = document.getElementById("fare-table");
+                if (receipt_data.user_Data.Trip === "OUTSTATION") {
+                    fareTable.innerHTML = `
+                        <tr>
+                            <td>Base Fare</td>
+                            <td id="price_load">100</td>
+                        </tr>
+                        <tr>
+                            <td>Driver Allowance</td>
+                            <td>₹400</td>
+                        </tr>
+                        <tr>
+                            <td>Rate Per KM</td>
+                            <td id="rpk_load">100</td>
+                        </tr>
+                        <tr class="centered-row">
+                          <td>Estimated Fare</td>
+                          <td id="final_pricess"></td>
+                    </tr>
+                        <tr>
+                            <td>Night Time Allowance</td>
+                            <td>₹200/night (11:00 PM - 06:00 AM)</td>
+                        </tr>
+                        <tr>
+                            <td>Extra Charges</td>
+                            <td>May apply if trip does not end at Chennai</td>
+                        </tr>
+                        <tr>
+                            <td>Exclusions</td>
+                            <td>Toll costs, parking, permits, and state tax</td>
+                        </tr>
+                    `;
+                } else {
+                    fareTable.innerHTML = `
+                        <tr>
+                            <td>Base Fare</td>
+                            <td id="price_load">100</td>
+                        </tr>
+                        <tr>
+                            <td>Driver Allowance</td>
+                            <td>₹400</td>
+                        </tr>
+                        <tr>
+                            <td>Rate Per KM</td>
+                            <td id="rpk_load">100</td>
+                        </tr>
+                        <tr class="centered-row">
+                          <td>Estimated Fare</td>
+                          <td id="final_prices"></td>
+                    </tr>
+                         <!-- Insert Estimated Fare row here -->
+                        <tr>
+                            <td>Night Time Allowance</td>
+                            <td>₹200/night (11:00 PM - 06:00 AM)</td>
+                        </tr>
+                        <tr>
+                            <td>Extra Charges</td>
+                            <td>May apply if trip does not end at Chennai</td>
+                        </tr>
+                        <tr>
+                            <td>Exclusions</td>
+                            <td>Toll costs, parking, permits, and state tax</td>
+                        </tr>
+                    `;
+                }
+            }
+            
+            
+        
+        calculatetotalamount();
+        function downloadAsImage() {
+            // Select the content to capture
+            const container = document.getElementById('capture');
+
+            // Use html2canvas to create a screenshot
+            html2canvas(container).then(canvas => {
+                // Convert the canvas to a data URL
+                const imageData = canvas.toDataURL('image/png');
+
+                // Create a download link
+                const link = document.createElement('a');
+                link.href = imageData;
+                link.download = 'ride-confirmation.png'; // Set the file name
+
+                // Programmatically click the link to trigger the download
+                link.click();
+            });
+            sendWhatsAppMessage();
+        }
+        
+
+
+        function update_data(){
+                var pickup_load = document.getElementById("pickup_load")
+                pickup_load.innerHTML = `${receipt_data.user_Data.From}`;
+
+                var drop_load = document.getElementById("drop_load")
+                drop_load.innerHTML = `${receipt_data.user_Data.To}`;
+                
+                var date_load = document.getElementById("date_load")
+                date_load.innerHTML = `${receipt_data.user_Data.Pick_Date}`;
+
+                var time_load = document.getElementById("time_load")
+                time_load.innerHTML = `${receipt_data.user_Data.Pick_Time}`;
+                
+                var distance_load = document.getElementById("distance_load")
+                distance_load.innerHTML = `${receipt_data.cost_data.distance} KM`;
+                
+                var traveltime_load = document.getElementById("traveltime_load")
+                traveltime_load.innerHTML = `${receipt_data.cost_data.duration} KM`;
+
+                var selected_load = document.getElementById("selected_load")
+                selected_load.innerHTML = `${receipt_data.cost_data.car_selected}`;
+
+                var mode_load = document.getElementById("mode_load")
+                mode_load.innerHTML = `${receipt_data.user_Data.Trip}`;
+
+                var type_load = document.getElementById("type_load")
+                type_load.innerHTML = `${receipt_data.user_Data.Type}`;
+
+                // var km_load = document.getElementById("km_load")
+                // km_load.innerHTML = `₹${receipt_data.cost_data.selected_cost} per km`;
+
+                var price_load = document.getElementById("price_load")
+                price_load.innerHTML = `₹${receipt_data.cost_data.total_price}`;
+
+                //Afert last div
+                // var base_fare_load = document.getElementById("base_fare_load")
+                // base_fare_load.innerHTML = `₹${receipt_data.cost_data.total_price}`;
+
+                // var da_load = document.getElementById("da_load")
+                // da_load.innerHTML = `₹${receipt_data.cost_data.dl}`;
+
+                var rpk_load = document.getElementById("rpk_load")
+                rpk_load.innerHTML = `₹${receipt_data.cost_data.selected_cost}`;
+
+                // var km_display = document.getElementById("km_display")
+                // km_display.innerHTML = `₹${receipt_data.cost_data.selected_cost} KM (CHARGED ONLY IF TRAVELLED)`;
+
+
+                var total_est_fare = receipt_data.cost_data.total_price + receipt_data.cost_data.dl;
+
+                // var est_fare_load = document.getElementById("est_fare_load")
+                // est_fare_load.innerHTML = `₹${total_est_fare}`;
+                
+            }
+            update_data();
+    </script>
+    
+      <script>
+        var total_est_fare = receipt_data.cost_data.total_price + receipt_data.cost_data.dl;
+        document.getElementById('final_prices').innerText = `₹${total_est_fare.toFixed(1)}`;
+        document.getElementById('final_pricess').innerText = `₹${total_est_fare.toFixed(1)}`;
+
+    </script>
+</body>
+</html>
